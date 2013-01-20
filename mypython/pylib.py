@@ -3,12 +3,14 @@ foo = [some_func(x) for x in range(1, 11) if not (x % 2)]
 #2 dict comprehension
 {n:n*n for n in range(5)}
 
-
-
-
-#n regex
+#3 regex
 import re
+pattern = re.compile(r'ab*.')
+m = pattern.match("")
+#  m.group()
+#  m.start(), m.end(), m.span
 
+m = pattern.sub('rep', str)
 
 
 
