@@ -11,13 +11,20 @@ struct ListNode {
 ListNode *reverseBetween(ListNode *head, int m, int n) {
     if(!head)
         return head;
+    // add a guard before the head since head may change if the first node
+    // is reversed. guard->next is always the correct head!
     ListNode *guard = new ListNode (-1);
     guard->next = head;
+    // the previous-previous node of the current node. pp->next is the last node
+    // which is not reversed! So change pp->next->next to point to the new reversed
+    // list!
     ListNode *pp = guard;
     ListNode *p = head;
     ListNode *cur = head->next;
     int cnt = 1;
     
+    // check cur != NULL is not always working! In this case, if cur=NULL but cnt = n
+    // we still want to go through one more iteration!
     while (true) {
         if (cnt<m) {
             pp=p;
