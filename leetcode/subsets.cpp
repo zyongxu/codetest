@@ -16,6 +16,8 @@
  *   [1,2],
  *   []
  * ]
+ * 
+ * Running time on large set: 56ms
  */
 
 class Solution {
