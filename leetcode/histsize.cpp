@@ -1,22 +1,30 @@
-/*
- * weird data structure + weird data (index)
+/* Find the largest Rectangle under historgram
+ * When need to track a lot of info and a vector is not an option,
+ * try queue or stack!
  */
 
 class Solution {
 public:
-    int largestRectangleArea(vector<int> &h) {
-        stack<int> p;
-        int i = 0, m = 0;
-        h.push_back(0);
-        while(i < h.size()) {
-            if(p.empty() || h[p.top()] <= h[i])
-                p.push(i++);
-            else {
-                int t = p.top();
-                p.pop();
-                m = max(m, h[t] * (p.empty() ? i : i - p.top() - 1 ));
+    int largestRectangleArea(vector<int> &height) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        stack<int> idxstack;
+        height.push_back(0);
+        int len = height.size();
+
+        int i=0;
+        int maxsize = 0;
+        while (i<len) {
+            if (idxstack.empty() || height[idxstack.top()]<height[i]) {
+                idxstack.push(i);
+                i++;
+            } else {
+                int j = idxstack.top();
+                idxstack.pop();
+                int s = height[j] * (idxstack.empty() ? i : i-1-idxstack.top());
+                maxsize = max(s, maxsize);
             }
         }
-        return m;
+        return maxsize;
     }
 };
