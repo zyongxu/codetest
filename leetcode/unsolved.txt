@@ -14,3 +14,4 @@ http://leetcode.com/onlinejudge#question_87
 
 #6 Maximal Rectangle
 
+#7 Text Justification
