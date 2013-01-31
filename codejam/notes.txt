@@ -1,0 +1,8 @@
+1. 
+convert the result of an expression of int to long long if you really want to
+store the value in a long long. e.g.: the following code still can not hold a
+value larger than 2^31-1
+    long long ret;
+    int a=pow(2, 29);
+    int b=pow(2, 29);
+    ret = a*b; //OVERFLOWED HERE!
