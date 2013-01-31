@@ -1,17 +1,10 @@
-#1 Distinct Subsequences
-http://leetcode.com/onlinejudge#question_115
-
-#2 Recovery BST with O(1)
+#1 Recovery BST with O(1)
 http://leetcode.com/onlinejudge#question_99
 property: in-order traversal of BST output all the nodes in acsending order
 
-############## NEW Advanture Start From Restore IP addresses ##############
-
-#4 Use backtrack to solve subset II
-
-#5 Scramble string
+#2 Scramble string
 http://leetcode.com/onlinejudge#question_87
 
-#6 Maximal Rectangle
+#3 Maximal Rectangle
 
-#7 Text Justification
+#4 Text Justification
