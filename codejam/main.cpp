@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
-//#include "RopeIntranet/ropeintranet.h"
-#include "FileFixIt/filefixit.h"
+//#include "ropeintranet.h"  // Not compatible with this frame!
+#include "filefixit.h"
+
 using namespace std;
 
 int main (int argc, char *argv[]) {
