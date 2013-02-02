@@ -2,7 +2,8 @@
 #include <fstream>
 #include <ctime>
 //#include "ropeintranet.h"  // Not compatible with this frame!
-#include "filefixit.h"
+//#include "filefixit.h"
+#include "allyourbase.h"
 
 using namespace std;
 
