@@ -12,7 +12,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-void dostuff(int); /* function prototype */
+void dostuff(int);
 void error(const char *msg)
 {
     perror(msg);
@@ -51,8 +51,12 @@ int main(int argc, char *argv[])
                (struct sockaddr *) &cli_addr, &clilen);
          if (newsockfd < 0) 
              error("ERROR on accept");
-         /* fork returns the PID of child process for parent process
-          * and returns 0 for the child process
+         /*
+          * Upon successful completion, fork() returns a value of 0 to the child
+          * process and returns the process ID of the child process to the parent
+          * process.  Otherwise, a value of -1 is returned to the parent process, no
+          * child process is created, and the global variable errno is set to indi-
+          * cate the error.
           */
          pid = fork();
          if (pid < 0)
