@@ -1,19 +1,19 @@
+/*
+ * Create thread by passing an instance method 
+ * into the thread cter
+ * WARNING: No like a class method or
+ * a regular function, the address of the instance 
+ * must be passed as the FIRST parameter!
+ */
 
 #include <iostream>
 #include <boost/thread.hpp>
 
-class Worker
-{
+class Worker {
 public:
-    
-    Worker(unsigned N) 
-    {
-        // This is so contrived...
-        m_N = N;
-    }
+    Worker(unsigned N): m_N(N) {}
 
-    void processQueue(unsigned M)
-    {
+    void processQueue(unsigned M) {
         float ms = m_N * M * 1e3;
         boost::posix_time::milliseconds workTime(ms);
 
@@ -23,26 +23,21 @@ public:
 
         // We're busy, honest!
         boost::this_thread::sleep(workTime);
-
         std::cout << "Worker: completed" << std::endl;
     }
 
 private:
-
-    unsigned    m_N;
+    unsigned m_N;
 };
 
 int main(int argc, char* argv[])
 {
     std::cout << "main: startup" << std::endl;
-
     Worker w(3);
     boost::thread workerThread(&Worker::processQueue, &w, 2);
 
     std::cout << "main: waiting for thread" << std::endl;
-
     workerThread.join();
-
     std::cout << "main: done" << std::endl;
 
     return 0;

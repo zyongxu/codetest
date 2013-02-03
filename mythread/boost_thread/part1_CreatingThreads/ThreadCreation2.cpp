@@ -1,20 +1,19 @@
+/*
+ * Create thread by passing a functor
+ */
 
 #include <iostream>
 #include <boost/thread.hpp>
 
-class Worker
-{
+class Worker {
 public:
-    
     Worker(unsigned N, float guess, unsigned iter) 
             : m_Number(N),
               m_Guess(guess),
               m_Iterations(iter)
-    {
-    }
+    {}
 
-    void operator()()
-    {
+    void operator() () {
         std::cout << "Worker: calculating sqrt(" << m_Number
                   << "), itertations = " << m_Iterations << std::endl;
 
@@ -34,17 +33,16 @@ public:
     }
 
 private:
-
     unsigned    m_Number;
     float       m_Guess;
     unsigned    m_Iterations;
 };
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     std::cout << "main: startup" << std::endl;
 
     Worker w(612, 10, 5);
+    // WARNING: The object is passed by value!
     boost::thread workerThread(w);
 
     std::cout << "main: waiting for thread" << std::endl;

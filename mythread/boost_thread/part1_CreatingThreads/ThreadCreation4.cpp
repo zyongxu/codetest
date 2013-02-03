@@ -1,19 +1,25 @@
+/*
+ * Encapsulate the thread management into 
+ * the worker class. So that the caller (main())
+ * doesn't need to take care of thread creation
+ */
+
 #include <iostream>
 #include <boost/thread.hpp>
 
 class Worker {
 public:
-    Worker() {
-        // the thread is not-a-thread until we call start()
-    }
+    // m_thread is the state of "not-a-thread" until we call start()
+    Worker() {}
 
     void start(int N) {
         // create the thread, with parameters passed in
+        // the instance pointer ("this" in this example) is the 
+        // first parameter by default requirement
         m_Thread = boost::thread(&Worker::processQueue, this, N);
     }
 
     void join() {
-        // let other threads to join this thread
         m_Thread.join();
     }
     
@@ -37,10 +43,11 @@ private:
 
 int main(int argc, char* argv[]) {
     std::cout << "main: startup" << std::endl;
-
+    // the thread is not started yet
     Worker worker;
-    worker.start(3);
 
+    // the thread starts afther worker.start() is called!
+    worker.start(3);
     std::cout << "main: waiting for thread" << std::endl;
     worker.join();
     std::cout << "main: done" << std::endl;
