@@ -38,8 +38,11 @@ string solve() {
         stringstream ss;
         ss<<"YES\n"<<(t-dp[x-1][y-1]);
         return ss.str();
-    } else
-        return "NO";
+    } else {
+        stringstream ss;
+        ss<<"NO"<<endl<<dp[x-1][y-1];
+        return ss.str();
+    }
     
 }
 
