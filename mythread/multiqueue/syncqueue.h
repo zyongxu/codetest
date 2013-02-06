@@ -23,10 +23,7 @@ public:
   // Get data from the queue. Wait for data if not available
   T Dequeue() {
     boost::unique_lock<boost::mutex> lock(m_mutex);
-    // When there is no data, wait till someone fills it.
-    // Lock is automatically released in the wait and obtained
-    // again after the wait
-    while (!m_queue.size()) m_cond.wait(lock);
+    while (m_queue.empty()) m_cond.wait(lock);
     T ret = m_queue[0]; 
     m_queue.pop_front(); 
     return ret;

@@ -1,3 +1,7 @@
+/*
+ * Compile with -lsocket linking
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

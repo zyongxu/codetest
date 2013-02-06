@@ -1,8 +1,10 @@
-/* A simple server in the internet domain using TCP
-   The port number is passed as an argument 
-   This version runs forever, forking off a separate 
-   process for each connection
-*/
+/* 
+ * A simple server in the internet domain using TCP
+ * The port number is passed as an argument 
+ * This version runs forever, forking off a separate 
+ * process for each connection
+ */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -52,38 +54,29 @@ int main(int argc, char *argv[])
          if (newsockfd < 0) 
              error("ERROR on accept");
          /*
-          * Upon successful completion, fork() returns a value of 0 to the child
-          * process and returns the process ID of the child process to the parent
-          * process.  Otherwise, a value of -1 is returned to the parent process, no
-          * child process is created, and the global variable errno is set to indi-
-          * cate the error.
+          * fork() returns a value of 0 to the child process and returns 
+          * the process ID of the child process to the parent process. 
+          * Return -1 to the parent process on failure
           */
          pid = fork();
          if (pid < 0)
              error("ERROR on fork");
-         // in the child process(pid = 0). Make a copy of the parent process
-         // to handle the request from a client (the 'newsockfd')
+         // in the child process(pid = 0). 
+         // Make a copy of the parent process to handle the request from a client
          if (pid == 0)  {
              close(sockfd);
              dostuff(newsockfd);
              exit(0);
          }
-         // in the parent process (pid = PID of the child process). 
-         // Close the newsockfd and go back to listening, while the child
-         // process is handling the request from newsockfd
+         // in the parent process 
+         // Close the newsockfd and go back to listening
          else close(newsockfd);
-     } /* end of while */
+     }
      close(sockfd);
-     return 0; /* we never get here */
+     return 0;
 }
 
-/******** DOSTUFF() *********************
- There is a separate instance of this function 
- for each connection.  It handles all communication
- once a connnection has been established.
- *****************************************/
-void dostuff (int sock)
-{
+void dostuff (int sock) {
    int n;
    char buffer[256];
       
