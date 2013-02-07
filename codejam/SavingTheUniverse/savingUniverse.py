@@ -10,10 +10,11 @@ def findSwitch(fd):
     ret=0
     for i in range(Q):
         query = fd.readline()
+        query = query.strip()
+        engines.add(query)
         if (len(engines)==S):
             ret += 1;
             engines.clear()
-        engines.add(query)
 
     return ret
 
