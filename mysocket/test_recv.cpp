@@ -37,7 +37,10 @@ int main(int argc, char *argv[]) {
     int len = recvfrom(sock_handler, (void *) msg_buf, 2048,
                        0, NULL, NULL);
 
-    cout<<msg_buf<<endl;
+    cout<<"Client: got multicast message"<<endl
+        <<"-----------------------------"<<endl
+        <<msg_buf
+        <<"-----------------------------"<<endl;
     return 0;
 }
 
