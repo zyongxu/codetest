@@ -9,7 +9,7 @@ vpath %.cpp $(SRC_DIR)
 
 PROGRAMS = atomic_check
 
-atomic_check_OBJS = atomic_check.o
+atomic_check_OBJS = atomic_type.o
 
 ################ DO NOT MODIFY BELOW THIS LINE! ################
 
