@@ -25,7 +25,7 @@ all: $(PROGRAMS)
 
 # generic rule to compile objects
 define compile_template =
-$(1)/%.o: %.cpp
+$(1)%.o: %.cpp
 	mkdir -p $$(@D)
 	$$(CXX) $$(CXXFLAGS) -c $$< -o $$@
 endef
