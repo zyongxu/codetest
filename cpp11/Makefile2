@@ -1,16 +1,22 @@
+PROGRAMS	:= atomic_check
+
 CXX 		:= g++47
 CXXFLAGS	:= -std=c++11 -Wall
 LDFLAGS		:= -Wall "-Wl,-rpath,/usr/local/lib/gcc47/"
 LDLIBS		:= -L/usr/local/include
 
-SRC_DIR = .
-OUT_DIR = bin
 
-PROGRAMS = atomic_check
-
-atomic_check_OBJS = atomic_type.o
 
 ################ DO NOT MODIFY BELOW THIS LINE! ################
+
+# list of all source filesd (including directories)
+SRC := $(wildcard *.cpp)
+#list of all soruce code directories
+SRC_DIR := $(sort $(dir $(SRC)))
+
+OUT_DIR := bin
+OBJ := $(addprefix $(OUT_DIR)/,$(patsubst %.cpp,%.o,$(SRC)))
+OBJ_DIR := $(addprefix $(OUT_DIR)/,$(SRC_DIR))
 
 vpath %.cpp $(SRC_DIR)
 
@@ -19,7 +25,7 @@ all: $(PROGRAMS)
 
 # generic rule to compile and link executable
 define PROGRAM_template =
-$(1): $$(addprefix $$(OUT_DIR)/,$$($(1)_OBJS))
+$(1): $$(OBJ)
 endef
 
 $(foreach prog,$(PROGRAMS),$(eval $(call PROGRAM_template,$(prog))))
@@ -27,14 +33,21 @@ $(foreach prog,$(PROGRAMS),$(eval $(call PROGRAM_template,$(prog))))
 # generic rule to compile objects
 define compile_template =
 $(1)/%.o: %.cpp
-	mkdir -p $(1)
+	mkdir -p $$(@D)
 	$$(CXX) $$(CXXFLAGS) -c $$< -o $$@
 endef
 
-$(eval $(call compile_template,$(OUT_DIR)))
+$(foreach odir,$(OBJ_DIR),$(eval $(call compile_template,$(odir))))
 
 $(PROGRAMS):
 	$(CXX) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+
+.PHONY: check
+check:
+	@echo $(SRC)
+	@echo $(SRC_DIR)
+	@echo $(OBJ)
+	@echo $(OBJ_DIR)
 
 .PHONY: clean
 clean:

@@ -42,6 +42,9 @@ OBJ := $(patsubst src/%.cpp,bin/%.o,$(SRC))
 CXXFLAGS += $(addprefix -I,$(SRC_DIR))
 dir_guard = mkdir -p $(@D)
 
+# list of all source files (without any dir or path)
+#SRC := $(notdir $(wildcard *.cpp))
+
 # VPATH is different from vpath! vpath specifies the type of the file to be searched
 vpath %.cpp $(SRC_DIR)
 
