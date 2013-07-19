@@ -1,8 +1,8 @@
-PROGRAMS	:= atomic_check
+PROGRAMS	:= one_way_pub_srv one_way_sub_clt
 CXX 		:= g++
-CXXFLAGS	:= -std=c++11 -Wall
+CXXFLAGS	:= -std=c++11 -Wall -I/usr/local/include
 LDFLAGS		:= -Wall
-LDLIBS		:= -L/usr/local/include
+LDLIBS		:= -L/usr/local/include -lzmq
 
 
 
@@ -33,7 +33,7 @@ endef
 # generic rule to compile and link executable
 define PROGRAM_template
 $(1): $$(OBJ)
-	$$(CXX) $$(LDFLAGS) $$^ -o $$@ $$(LDLIBS)
+	$$(CXX) $$(LDFLAGS) bin/$(1).o -o $$@ $$(LDLIBS)
 endef
 
 $(foreach odir,$(OBJ_DIR),$(eval $(call compile_template,$(odir))))
