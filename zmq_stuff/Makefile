@@ -1,5 +1,4 @@
-PROGRAMS	:= pub_sub/one_way_pub_srv pub_sub/one_way_sub_clt \
-	task_producer.cpp task_collector.cpp worker.cpp
+PROGRAMS	:= #put the name of the program to compare here#
 CXX 		:= g++
 CXXFLAGS	:= -std=c++11 -Wall -I/usr/local/include
 LDFLAGS		:= -Wall
