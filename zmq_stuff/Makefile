@@ -1,8 +1,9 @@
-PROGRAMS	:= zmq_test
-CXX 		:= g++47
+PROGRAMS	:= atomic_check
+CXX 		:= g++
 CXXFLAGS	:= -std=c++11 -Wall
-LDFLAGS		:= -Wall `-Wl,-rpath -Wl,/usr/local/lib`
+LDFLAGS		:= -Wall
 LDLIBS		:= -L/usr/local/include
+
 
 
 ################ DO NOT MODIFY BELOW THIS LINE! ################
@@ -22,26 +23,24 @@ vpath %.cpp $(SRC_DIR)
 .PHONY: all
 all: $(PROGRAMS)
 
-## generic rule to compile objects
+# generic rule to compile objects
 define compile_template
 $(1)%.o: %.cpp
 	mkdir -p $$(@D)
 	$$(CXX) $$(CXXFLAGS) -c $$< -o $$@
 endef
 
+# generic rule to compile and link executable
+define PROGRAM_template
+$(1): $$(OBJ)
+	$$(CXX) $$(LDFLAGS) $$^ -o $$@ $$(LDLIBS)
+endef
 
-## generic rule to compile and link executable
-#define PROGRAM_template =
-#$(1): $$(OBJ)
-#	$$(CXX) $$(LDFLAGS) $$^ -o $$@ $$(LDLIBS)
-#endef
-#
-#$(foreach odir,$(OBJ_DIR),$(eval $(call compile_template,$(odir))))
-#$(foreach prog,$(PROGRAMS),$(eval $(call PROGRAM_template,$(prog))))
+$(foreach odir,$(OBJ_DIR),$(eval $(call compile_template,$(odir))))
+$(foreach prog,$(PROGRAMS),$(eval $(call PROGRAM_template,$(prog))))
 
 .PHONY: check
 check:
-	@echo $(info $(call compile_template,"bin"))
 	@echo $(SRC)
 	@echo $(SRC_DIR)
 	@echo $(OBJ)
