@@ -24,14 +24,14 @@ vpath %.cpp $(SRC_DIR)
 all: $(PROGRAMS)
 
 # generic rule to compile objects
-define compile_template =
+define compile_template
 $(1)%.o: %.cpp
 	mkdir -p $$(@D)
 	$$(CXX) $$(CXXFLAGS) -c $$< -o $$@
 endef
 
 # generic rule to compile and link executable
-define PROGRAM_template =
+define PROGRAM_template
 $(1): $$(OBJ)
 	$$(CXX) $$(LDFLAGS) $$^ -o $$@ $$(LDLIBS)
 endef
