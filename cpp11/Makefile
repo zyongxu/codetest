@@ -6,7 +6,7 @@ LDLIBS		:= -L/usr/local/include
 SRC_DIR = .
 OUT_DIR = bin
 
-PROGRAMS = atomic_check
+PROGRAMS = atomic_check rvalue_ref
 
 atomic_check_OBJS = atomic_type.o
 
