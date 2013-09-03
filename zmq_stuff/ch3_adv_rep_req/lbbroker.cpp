@@ -3,8 +3,13 @@
  * Least-recently used (LRU) queue device
  * Clients and workers are shown here in-process
  *
- *  [REQ] -- [ROUTER - ROUTER] -- [REQ/DEALER]
- * (client)    (load balancer)       (worker)
+ *  [REQ/DEALER] -- [ROUTER - ROUTER] -- [REQ/DEALER]
+ *    (client)       (load balancer)       (worker)
+ *
+ * Compared to a simpler proxy:
+ *  [DEALER] -- [ROUTER - DEALER] -- [DEALER]
+ *  The load balaning version has MORE overhead, but a better load
+ *  balancing algorithm (LRU)
  *
  * This broker does the following:
  *   1. Accepts connections from a set of clients.
