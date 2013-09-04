@@ -5,6 +5,7 @@ page_template = """
   <head>
   <title>Static example</title>
     <!--Load the AJAX API-->
+    <script type="text/javascript" src="dygraph-combined.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <script type="text/javascript">
@@ -16,15 +17,15 @@ page_template = """
 
       function drawChart() {
         %(jscode)s
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(jscode_data, {});
+        <!--var chart = new google.visualization.LineChart(document.getElementById('chart_div').draw(jscode_data, {}));-->
+        var chart = new Dygraph.GVizChart(document.getElementById('chart_div')).draw(jscode_data, {});
       }
     </script>
   </head>
   <body>
     <!--Div that will hold the pie chart-->
-    <H1>Table created using ToJSon</H1>
-    <div id="chart_div"></div>
+    <H2>Price</H2>
+    <div id="chart_div" style="width:100%%"></div>
   </body>
 </html>
 """
