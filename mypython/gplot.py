@@ -31,7 +31,7 @@ page_template = """
 """
 
 def drawChart(data_dic):
-    chart_schema = [("time", "number"), ("price", "number")]
+    chart_schema = [("time", "datetime"), ("price", "number")]
     gdata_table  = gviz_api.DataTable(chart_schema)
     data2pop = []
     for k, v in sorted(data_dic.iteritems()):

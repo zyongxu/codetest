@@ -5,6 +5,7 @@
 import sys
 import re
 import gplot
+import datetime
 
 class DataRecord:
     def __init__(self, filename):
@@ -46,8 +47,11 @@ def foo(fname1, fname2):
         else:
             sp_price = dr1.price - dr2.price
             sp_size  = min(dr1.size, dr2.size)
-            #print ("{0}\t{1}".format(sp_price, sp_size))
-            result[sec1] = [sp_price, sp_size]
+
+            millisec = datetime.timedelta(milliseconds = sec1 * 100)
+            tmp_date = datetime.datetime.combine(datetime.date.today(), datetime.time(9,0,0,0))
+            tmp_date = tmp_date + millisec
+            result[tmp_date] = [sp_price, sp_size]
             sec1 = dr1.getRecord()
             sec2 = dr2.getRecord()
 
