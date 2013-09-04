@@ -6,39 +6,35 @@ import re
 class DataRecord:
     def __init__(self, filename):
         self.fobj = open(filename, 'rb')
-        self.prev_line = "0 0 0 0"
-        self.price = 0
-        self.sec   = 0
-        self.size  = 0
-        self.fobj.readline()
+        self.sec       = 0
+        self.price     = 0
+        self.size      = 0
+        self.prev_size = 0
+        self.fobj.readline() #The first line is a summary of yesterday
 
-    def next():
+    def getRecord(self):
         curr_line = self.fobj.readline()
+        if not curr_line:
+            return -1
+
         self.sec = str2sec(curr_line)
         [self.price, cur_size] = priceAndSize(curr_line)
 
-        self.prev_line = curr_line
+        self.size = cur_size - self.prev_size
+        self.prev_size = cur_size
 
+        print ("{0}\t{1}".format(self.price, self.size))
+        return self.sec
 
 def foo(fname1, fname2):
-    leg1_fobj = open(fname1, 'rb')
-    leg2_fobj = open(fname2, 'rb')
+    dr1 = DataRecord(fname1)
     result = {}
 
-    prev_line = "0 0 0 0"
     while 1:
-        line1 = leg1_fobj.readline();
-        if not line1:
+        sec1 = dr1.getRecord()
+        if sec1 == -1:
             break;
-
-        #line2 = leg2_fobj.readline();
-        #if not line2:
-        #    break;
-
-        sec1 = str2sec(line1)
-        #sec2 = str2sec(line2)
         print sec1
-        priceAndSize(line1, line1)
 
 def str2sec(time_stamp):
     hour    = float(time_stamp[1:3]) - 9
@@ -49,11 +45,12 @@ def str2sec(time_stamp):
     #print ("{0}\t{1}\t{2}\t{3}".format(hour, minu, sec, milisec))
     return hour*3600 + minu*60 + sec + milisec/1000
 
-def priceAndSize(str1, str2):
+def priceAndSize(str1):
     fields = str1.split(' ', 4)
     price = float(fields[1])
     size  = float(fields[2])
-    print ("{0}\t{1}".format(price, size))
+
+    return [price, size]
 
 if __name__ == "__main__":
     foo(sys.argv[1], sys.argv[2])
