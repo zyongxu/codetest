@@ -23,7 +23,7 @@ gviz_template = """
   </head>
   <body>
     <!--Div that will hold the pie chart-->
-    <H2>Price</H2>
+    <H2>%(price_title)s Price</H2>
     <div id="chart_div" style="width: 1600px; height: 500px;"></div>
   </body>
 </html>
@@ -53,13 +53,13 @@ dygraph_template = """
   </head>
   <body>
     <!--Div that will hold the pie chart-->
-    <H2>Price</H2>
+    <H2>%(price_title)s Price</H2>
     <div id="chart_div" style="width:100%%"></div>
   </body>
 </html>
 """
 
-def drawChart(data_dic):
+def drawChart(data_dic, spread_name):
     chart_schema = [("time", "datetime"), ("price", "number")]
     gdata_table  = gviz_api.DataTable(chart_schema)
     data2pop = []
@@ -73,9 +73,9 @@ def drawChart(data_dic):
     jscode = gdata_table.ToJSCode("jscode_data")
 
     fdyg = open('dygraph.html', 'w');
-    fdyg.write(dygraph_template % {"jscode": jscode})
+    fdyg.write(dygraph_template % {"jscode": jscode, "price_title": spread_name})
     fdyg.close()
 
     fgviz = open('googlechart.html', 'w');
-    fgviz.write(gviz_template % {"jscode": jscode})
+    fgviz.write(gviz_template % {"jscode": jscode, "price_title": spread_name})
     fgviz.close()

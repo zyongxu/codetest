@@ -6,6 +6,7 @@ import sys
 import re
 import gplot
 import datetime
+import os
 
 class DataRecord:
     def __init__(self, filename):
@@ -29,9 +30,10 @@ class DataRecord:
 
         return self.sec
 
-def foo(fname1, fname2):
+def main(fname1, fname2):
     dr1 = DataRecord(fname1)
     dr2 = DataRecord(fname2)
+    spread_name = os.path.basename(fname1) + '-' + os.path.basename(fname2)
     result = {}
 
     sec1 = dr1.getRecord()
@@ -55,7 +57,7 @@ def foo(fname1, fname2):
             sec1 = dr1.getRecord()
             sec2 = dr2.getRecord()
 
-    gplot.drawChart(result)
+    gplot.drawChart(result, spread_name)
     #for k, v in sorted(result.iteritems()):
     #    print k, v
 
@@ -75,4 +77,4 @@ def priceAndSize(str1):
     return [price, size]
 
 if __name__ == "__main__":
-    foo(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2])
