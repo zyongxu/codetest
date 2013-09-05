@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
-# Use goolge-visualization-python(https://code.google.com/p/google-visualization-python/) to plot
+# Use goolge-visualization-python
+#   https://code.google.com/p/google-visualization-python/
+# and dygraph to plot
 
 import sys
 import re
@@ -71,7 +73,7 @@ def str2sec(time_stamp):
 
 def priceAndSize(str1):
     fields = str1.split(' ', 4)
-    price = int(float(fields[1])*10)
+    price = float(fields[1])
     size  = int(fields[2])
 
     return [price, size]

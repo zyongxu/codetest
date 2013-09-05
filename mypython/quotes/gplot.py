@@ -64,7 +64,7 @@ def drawChart(data_dic, spread_name):
     gdata_table  = gviz_api.DataTable(chart_schema)
     data2pop = []
     for k, v in sorted(data_dic.iteritems()):
-        data2pop.append([k, float(v[0])/10])
+        data2pop.append([k, v[0]])
 
     gdata_table.LoadData(data2pop)
     json = gdata_table.ToJSon()
@@ -72,10 +72,12 @@ def drawChart(data_dic, spread_name):
     # Creating a JavaScript code string
     jscode = gdata_table.ToJSCode("jscode_data")
 
-    fdyg = open('dygraph.html', 'w');
+    dyname = spread_name+'_dy.html'
+    fdyg = open(dyname, 'w');
     fdyg.write(dygraph_template % {"jscode": jscode, "price_title": spread_name})
     fdyg.close()
 
-    fgviz = open('googlechart.html', 'w');
+    glname = spread_name+'_gl.html'
+    fgviz = open(glname, 'w');
     fgviz.write(gviz_template % {"jscode": jscode, "price_title": spread_name})
     fgviz.close()
