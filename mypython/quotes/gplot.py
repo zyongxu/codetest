@@ -3,7 +3,7 @@ import gviz_api
 gviz_template = """
 <html>
   <head>
-  <title>Static example</title>
+  <title>%(price_title)s</title>
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
@@ -32,7 +32,7 @@ gviz_template = """
 dygraph_template = """
 <html>
   <head>
-  <title>Static example</title>
+  <title>%(price_title)s</title>
     <!--Load the AJAX API-->
     <script type="text/javascript" src="dygraph-combined.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
