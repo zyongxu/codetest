@@ -1,4 +1,5 @@
 import gviz_api
+import xml.etree.ElementTree as ET
 
 gviz_template = """
 <html>
@@ -46,8 +47,7 @@ dygraph_template = """
 
       function drawChart() {
         %(jscode)s
-        <!--var chart = new google.visualization.LineChart(document.getElementById('chart_div').draw(jscode_data, {}));-->
-        var chart = new Dygraph.GVizChart(document.getElementById('chart_div')).draw(jscode_data, {});
+        var chart = new Dygraph.GVizChart(document.getElementById('chart_div')).draw(jscode_data, {%(options)s});
       }
     </script>
   </head>
@@ -73,8 +73,16 @@ def drawChart(data_dic, spread_name):
     jscode = gdata_table.ToJSCode("jscode_data")
 
     dyname = spread_name+'_dy.html'
+    product = spread_name[0:2]
+    tree = ET.parse('tick.xml')
+    tick_unit = 0
+    for prod in tree.getroot().findall('product'):
+        if prod[0].text == product:
+            tick_unit = int(float(prod[1].text) * float(prod[2].text))
+            break;
+    dyopts = "ylabel: 'Tick ({0} yuan/lot)'".format(tick_unit)
     fdyg = open(dyname, 'w');
-    fdyg.write(dygraph_template % {"jscode": jscode, "price_title": spread_name})
+    fdyg.write(dygraph_template % {"jscode": jscode, "price_title": spread_name, "options": dyopts})
     fdyg.close()
 
     glname = spread_name+'_gl.html'
