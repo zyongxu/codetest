@@ -1,5 +1,0 @@
-The Majordomo Protocol [http://rfc.zeromq.org/spec:7]
-
-Route req from clients to specific worker!
-heartbeat to ensure reliability
-broker has LRU load balancing
