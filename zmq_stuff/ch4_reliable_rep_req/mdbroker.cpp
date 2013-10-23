@@ -1,6 +1,8 @@
-//
 //  Majordomo Protocol broker
 //  A minimal implementation of http://rfc.zeromq.org/spec:7 and spec:8
+//    Route req from clients to specific worker!
+//    heartbeat to ensure reliability
+//    broker has LRU load balancing
 //
 //     Andreas Hoelzlwimmer <andreas.hoelzlwimmer@fh-hagenberg.at>
 //
