@@ -18,6 +18,7 @@ class DataRecord:
         self.size      = 0
         self.prev_size = 0
         self.fobj.readline() #The first line is a summary of yesterday
+        self.fobj.readline() #do a favor to IF
 
     def getRecord(self):
         curr_line = self.fobj.readline()

@@ -18,6 +18,7 @@ class DataRecord:
         self.size      = 0
         self.prev_size = 0
         self.fobj.readline() #The first line is a summary of yesterday
+        self.fobj.readline() #The second line is one minute before open
 
     def getRecord(self):
         curr_line = self.fobj.readline()
@@ -36,7 +37,7 @@ def main(fname1, fname2, fname3):
     dr1 = DataRecord(fname1)
     dr2 = DataRecord(fname2)
     dr3 = DataRecord(fname3)
-    spread_name = "butterfly"
+    spread_name = "IF-butterfly"
     result = {}
 
     sec1 = dr1.getRecord()
