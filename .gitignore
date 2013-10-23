@@ -3,3 +3,4 @@ a.out*
 result.out
 *.pyc
 mypython/quotes/*.html
+mypython/quotes/charts
