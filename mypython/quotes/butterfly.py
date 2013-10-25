@@ -25,8 +25,10 @@ class DataRecord:
         if not curr_line:
             return -1
 
-        self.sec = str2sec(curr_line)
-        [self.price, cur_size] = priceAndSize(curr_line)
+        fields = curr_line.split(',');
+        self.sec   = str2sec(fields[0])
+        self.price = float(fields[2])
+        cur_size   = int(fields[3])
 
         self.size = cur_size - self.prev_size
         self.prev_size = cur_size
@@ -66,8 +68,6 @@ def main(fname1, fname2, fname3):
             sec3 = dr3.getRecord()
 
     gplot.drawChart(result, spread_name)
-    #for k, v in sorted(result.iteritems()):
-    #    print k, v
 
 def str2sec(time_stamp):
     hour    = int(time_stamp[1:3]) - 9
@@ -76,13 +76,6 @@ def str2sec(time_stamp):
     milisec = int(time_stamp[10:13])
 
     return (hour*3600 + minu*60 + sec)*10 + milisec/100
-
-def priceAndSize(str1):
-    fields = str1.split(' ', 4)
-    price = float(fields[1])
-    size  = int(fields[2])
-
-    return [price, size]
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2], sys.argv[3])
