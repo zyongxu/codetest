@@ -70,10 +70,10 @@ def main(fname1, fname2, fname3):
     gplot.drawChart(result, spread_name)
 
 def str2sec(time_stamp):
-    hour    = int(time_stamp[1:3]) - 9
-    minu    = int(time_stamp[4:6])
-    sec     = int(time_stamp[7:9])
-    milisec = int(time_stamp[10:13])
+    hour    = int(time_stamp[0:2]) - 9
+    minu    = int(time_stamp[3:5])
+    sec     = int(time_stamp[6:8])
+    milisec = int(time_stamp[9:12])
 
     return (hour*3600 + minu*60 + sec)*10 + milisec/100
 
