@@ -11,11 +11,11 @@ import datetime
 import os
 
 class DataRecord:
-    def __init__(self, filename):
+    def __init__(self, filename, stop_tick):
         self.fobj = open(filename, 'rb')
         self.sec       = 0
 
-        self.stop_loss    = 1.0
+        self.stop_loss    = float(stop_tick)
         self.bid_stop_cnt = 0
         self.bid_fill_cnt = 0
         self.ask_stop_cnt = 0
@@ -39,7 +39,7 @@ class DataRecord:
         for bid in self.bid_buf:
             if (bid >= tprice):
                 self.bid_fill_cnt += 1
-            elif (bid <= tprice + self.stop_loss):
+            elif (bid <= tprice - self.stop_loss):
                 self.bid_stop_cnt += 1
             else:
                 new_bids.append(bid)
@@ -61,8 +61,8 @@ class DataRecord:
 
         return self.sec
 
-def main(fname1):
-    dr1 = DataRecord(fname1)
+def main(fname1, stop_tick):
+    dr1 = DataRecord(fname1, stop_tick)
     spread_name = os.path.basename(fname1)
     result = {}
 
@@ -86,4 +86,4 @@ def str2sec(time_stamp):
     return (hour*3600 + minu*60 + sec)*10 + milisec/100
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2])
