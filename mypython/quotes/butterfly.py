@@ -7,6 +7,7 @@
 import sys
 import re
 import gplot
+import dyplot
 import datetime
 import os
 
@@ -67,7 +68,7 @@ def main(fname1, fname2, fname3):
             sec2 = dr2.getRecord()
             sec3 = dr3.getRecord()
 
-    gplot.drawChart(result, spread_name)
+    dyplot.drawChart(result, spread_name)
 
 def str2sec(time_stamp):
     hour    = int(time_stamp[0:2]) - 9

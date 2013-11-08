@@ -14,9 +14,15 @@ class DataRecord:
     def __init__(self, filename):
         self.fobj = open(filename, 'rb')
         self.sec       = 0
-        self.price     = 0
-        self.size      = 0
-        self.prev_size = 0
+
+        self.stop_loss    = 1.0
+        self.bid_stop_cnt = 0
+        self.bid_fill_cnt = 0
+        self.ask_stop_cnt = 0
+        self.ask_fill_cnt = 0
+        self.bid_buf      = []
+        self.ask_buf      = []
+
         self.fobj.readline() #The first line is a summary of yesterday
         self.fobj.readline() #do a favor to IF
 
@@ -25,13 +31,33 @@ class DataRecord:
         if not curr_line:
             return -1
 
-        fields = curr_line.split(',')
-        self.sec   = str2sec(fields[0])
-        self.price = float(fields[2])
-        cur_size   = int(fields[3])
+        fields   = curr_line.split(',')
+        self.sec = str2sec(fields[0])
 
-        self.size = cur_size - self.prev_size
-        self.prev_size = cur_size
+        tprice = float(fields[2])
+        new_bids = []
+        for bid in self.bid_buf:
+            if (bid >= tprice):
+                self.bid_fill_cnt += 1
+            elif (bid <= tprice + self.stop_loss):
+                self.bid_stop_cnt += 1
+            else:
+                new_bids.append(bid)
+        self.bid_buf = new_bids
+
+        new_asks = []
+        for ask in self.ask_buf:
+            if (ask <= tprice):
+                self.ask_fill_cnt += 1
+            elif (ask >= tprice + self.stop_loss):
+                self.ask_stop_cnt += 1
+            else:
+                new_asks.append(ask)
+        self.ask_buf = new_asks
+
+        cur_mkt    = fields[1].split(' ')
+        self.bid_buf.append(float(cur_mkt[2]))
+        self.ask_buf.append(float(cur_mkt[0]))
 
         return self.sec
 
@@ -43,17 +69,13 @@ def main(fname1):
     sec1 = dr1.getRecord()
 
     while 1:
-        sp_price = dr1.price
-        sp_size  = dr1.size
         millisec = datetime.timedelta(milliseconds = sec1 * 100)
         tmp_date = datetime.datetime.combine(datetime.date.today(), datetime.time(9,0,0,0))
         tmp_date = tmp_date + millisec
-        result[tmp_date] = [sp_price, sp_size]
         sec1 = dr1.getRecord()
         if sec1 == -1:
             break
-
-    dyplot.drawChart(result, spread_name)
+    print "bid stop: {}, bid fill: {}\nask stop: {}, ask fill: {}".format(dr1.bid_stop_cnt, dr1.bid_fill_cnt, dr1.ask_stop_cnt, dr1.ask_fill_cnt)
 
 def str2sec(time_stamp):
     hour    = int(time_stamp[0:2]) - 9
