@@ -27,7 +27,7 @@ class PriceQueue:
 class DataRecord:
     def __init__(self, filename):
         self.fobj             = open(filename, 'rb')
-        self.cur_line         = 1
+        self.cur_line         = 3
         self.half_sec         = PriceQueue(2)
         self.one_sec          = PriceQueue(3)
         self.one_and_half_sec = PriceQueue(4)
