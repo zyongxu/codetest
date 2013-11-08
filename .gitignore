@@ -5,3 +5,4 @@ result.out
 mypython/quotes/*.html
 mypython/quotes/*.csv
 mypython/quotes/charts
+mypython/quotes/result
