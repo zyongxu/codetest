@@ -27,8 +27,8 @@ class DataRecord:
         mds = fields[1].split(' ')
         cur_bb = float("{0:.1f}".format(float(mds[0])))
         cur_ba = float("{0:.1f}".format(float(mds[2])))
-        self.bid_slip = float("{0:.1f}".format(cur_bb - self.prev_bid))
-        self.ask_slip = float("{0:.1f}".format(cur_ba - self.prev_ask))
+        self.bid_slip = float("{0:.1f}".format(self.prev_bid - cur_bb))
+        self.ask_slip = float("{0:.1f}".format(self.prev_ask - cur_ba))
         self.prev_bid = float("{0:.1f}".format(cur_bb + self.TICK))
         self.prev_ask = float("{0:.1f}".format(cur_ba - self.TICK))
 
