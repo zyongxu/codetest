@@ -19,7 +19,7 @@ def main(fnames):
         drs.append(dr)
         chart_name += util.getProdFromFilename(f) + ' '
 
-    chart_name = chart_name[:-1].replace(' ', '-')
+    chart_name = chart_name[:-1].replace(' ', '-vs-')
 
     sec = []
     for dr in drs:
