@@ -6,10 +6,10 @@
 
 import sys
 import re
-import dyplot
 import datetime
-import util
-from data_record import DataRecord
+from localib import dyplot
+from localib import util
+from localib.data_record import DataRecord
 
 def main(fname1):
     dr1 = DataRecord(fname1)
