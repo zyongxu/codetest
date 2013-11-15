@@ -65,3 +65,17 @@ def drawChart(data_dic, spread_name):
     fdyg = open(dyname, 'w');
     fdyg.write(dygraph_template % {"jscode_price": price_jscode, "jscode_size": size_jscode, "product": spread_name, "options": dyopts})
     fdyg.close()
+
+def drawTwoLines(data_dic, spread_name, line1, line2):
+    chart_schema = {("time", "datetime"): [(line1, "number"), (line2, "number")]}
+    gdata_table  = gviz_api.DataTable(chart_schema)
+    gdata_table.LoadData(data_dic)
+    json = gdata_table.ToJSon()
+    # Creating a JavaScript code string
+    jscode = gdata_table.ToJSCode("jscode_price")
+
+    dyname = spread_name+'.html'
+    product = spread_name[0:2]
+    fdyg = open(dyname, 'w');
+    fdyg.write(dygraph_template % {"jscode_price": jscode, "jscode_size": "", "product": spread_name, "options": ""})
+    fdyg.close()
