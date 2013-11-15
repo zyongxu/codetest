@@ -8,12 +8,12 @@ import sys
 import re
 import dyplot
 import datetime
-import os
+import util
 from data_record import DataRecord
 
 def main(fname1):
     dr1 = DataRecord(fname1)
-    spread_name = os.path.basename(fname1)
+    spread_name = util.getProdFromFilename(fname1)
     result = {}
 
     sec1 = dr1.getRecord()
