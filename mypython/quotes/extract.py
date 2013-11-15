@@ -39,7 +39,8 @@ class DataRecord:
 def main(fname1, fname2):
     dr1 = DataRecord(fname1)
     dr2 = DataRecord(fname2)
-    spread_name = os.path.basename(fname1) + '-' + os.path.basename(fname2)
+    spread_name = os.path.splitext(os.path.basename(fname1))[0] + '-' +\
+                  os.path.splitext(os.path.basename(fname2))[0]
     result = {}
 
     sec1 = dr1.getRecord()

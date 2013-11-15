@@ -3,6 +3,7 @@ a.out*
 result.out
 *.pyc
 mypython/quotes/*.html
+mypython/quotes/html
 mypython/quotes/*.csv
 mypython/quotes/charts
 mypython/quotes/result

@@ -40,7 +40,9 @@ def main(fname1, fname2, fname3):
     dr1 = DataRecord(fname1)
     dr2 = DataRecord(fname2)
     dr3 = DataRecord(fname3)
-    spread_name = "IF-butterfly"
+    spread_name = os.path.splitext(os.path.basename(fname1))[0] + '-' +\
+                  os.path.splitext(os.path.basename(fname2))[0] + '-' +\
+                  os.path.splitext(os.path.basename(fname3))[0]
     result = {}
 
     sec1 = dr1.getRecord()
