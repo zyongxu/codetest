@@ -1,12 +1,7 @@
 #!/usr/bin/python
 
-# Use goolge-visualization-python
-#   https://code.google.com/p/google-visualization-python/
-# and dygraph to plot
-
 import sys
 import re
-import dyplot
 import datetime
 import os
 
