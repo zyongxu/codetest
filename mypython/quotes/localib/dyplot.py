@@ -27,7 +27,7 @@ dygraph_template = """
   <body>
     <H2>%(product)s Price</H2>
     <div id="chart_price" style="width:100%%"></div>
-    <H2>%(product)s Size</H2>
+    <H2>%(product)s Volume</H2>
     <div id="chart_size" style="width:100%%"></div>
   </body>
 </html>
