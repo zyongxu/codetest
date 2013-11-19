@@ -5,6 +5,8 @@ class DataRecord:
         self.fobj = open(filename, 'rb')
         self.sec       = 0
         self.price     = 0
+        self.bid_price = 0
+        self.ask_price = 0
         self.size      = 0
         self.prev_size = 0
         self.fobj.readline() #The first line is a summary of yesterday
@@ -17,6 +19,9 @@ class DataRecord:
 
         fields = curr_line.split(',')
         self.sec   = util.str2sec(fields[0])
+        cur_mkt = fields[1].split(' ')
+        self.bid_price = float(cur_mkt[0])
+        self.ask_price = float(cur_mkt[2])
         self.price = float(fields[2])
         cur_size   = int(fields[3])
 
