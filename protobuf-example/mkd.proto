@@ -1,0 +1,18 @@
+package acm;
+
+enum Side {
+    BID = 0;
+    ASK = 1;
+}
+
+message PriceInfo {
+    required int32 price = 1;
+    required int32 size  = 2;
+    required Side  side  = 3;
+}
+
+message MktData {
+    optional int32 secu_id     = 1 [default = 0];
+    optional string instrument = 2 [default = ""];
+    repeated PriceInfo quotes  = 3;
+}
