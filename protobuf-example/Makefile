@@ -1,6 +1,6 @@
 PROGRAMS	:= prototest
 CXX 		:= g++47
-CXXFLAGS	:= -std=c++11 -Wall -g -I/usr/local/include -I./protos
+CXXFLAGS	:= -std=c++11 -Wall -O2 -I/usr/local/include -I./protos
 LDFLAGS		:= -Wall -g "-Wl,-rpath,/usr/local/lib/gcc47/"
 LDLIBS		:= -L/usr/local/lib -lprotobuf
 
