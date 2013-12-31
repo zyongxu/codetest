@@ -26,7 +26,7 @@ void pbEncode(int secu_id, const string& instru,
 }
 
 int pbDecode(acm::MktData* md) {
-    volatile int secu_id;
+    volatile int secu_id; // prevent the compiler to optimize the parsing away
     string instru;
     volatile int bp, bs, ap, as;
     volatile int bd, ad;
