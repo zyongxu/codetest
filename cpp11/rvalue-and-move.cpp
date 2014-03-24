@@ -1,16 +1,10 @@
 #include <iostream>
 
-/*
- * To deal with rvalue:
- *    1) detect rvalue by function overloading (using rvalue reference)
- *    2) std::move() it
- */
 class Str {
 private:
     char *data;
 
 public:
-    /* ctor */
     Str(const char *p) {
         size_t size = strlen(p) + 1;
         data = new char[size];
@@ -20,7 +14,7 @@ public:
     /* 
      * The move ctor
      * with rvalue ref (to detect rvalue, and "steal" resource)
-     * Since rvalues are anonymous tmep objects, which will
+     * Since rvalues are anonymous temp objects, which will
      * be destroied at the next semicolon, we don't have to
      * deep copy it!
      */
