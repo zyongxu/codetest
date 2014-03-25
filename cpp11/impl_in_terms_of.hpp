@@ -15,7 +15,8 @@ private:
 };
 
 /*
- * The memory management implemetation
+ * The memory management implemetation to be used by multiple
+ * client classes/functions
  */
 template <class T>
 class MyList {
