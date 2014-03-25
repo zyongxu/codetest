@@ -2,6 +2,7 @@
 #define STRONG_STACK_V1_HPP
 /*
  * Strong exception guarantee version #1
+ * used private inheritance to realize "implemented-in-terms-of"
  */
 #include "stack_impl.hpp"
 
