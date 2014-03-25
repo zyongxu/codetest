@@ -6,7 +6,10 @@
 
 class CT {
 public:
-    // #1. [required]default ctor
+/*
+ * Ctors and dtor
+ */
+    // #1. [required]default ctor, mark ctors explicit when possible!
     explicit CT();
 
     // #2. [required]copy ctor
@@ -49,4 +52,45 @@ public:
      * 1. function is preferred to template function
      * 2. non-const is preferred to const
      */
+
+/*
+ * canonical forms of operators
+ */
+    CT& operator+= (const CT& other) {
+        // increment
+        return *this;
+    }
+
+    //PREincrement, returns ref to non-const
+    CT& operator++() {
+        //...
+        return *this;
+    }
+
+    //POSTincrement return const value. Not allowing
+    //changes to the returned object
+    //should be implemented in terms of preincrement
+    const CT operator++(int) {
+        CT tmp(*this);
+        ++*this;
+        return tmp;
+    }
+
+    // helper function for stream
+    ostream& print(ostream& os) const {
+        return os << ...;
+    }
 };
+
+// op should be implemented in terms of op=
+// it should NOT be a member method!
+const CT operator+(const CT& a, const CT& b ) {
+    CT temp(a);
+    temp += b;
+    return temp;
+}
+
+// operator<< should NOT be a member function
+ostream& operator<< (ostream& os, const CT& ct) {
+    return ct.print(os);
+}
