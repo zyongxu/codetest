@@ -13,6 +13,13 @@ public:
     explicit CT();
 
     // #2. [required]copy ctor
+    // use explicit copy ctor if, for example, you want to force pass-by-ref and
+    // prevent pass-by-value in functions
+    // also, explicit copy cotr will make the following failed to compile:
+    //      CT ct = CT(); // compile error
+    // and one has to explicitly call copy ctor:
+    //      CT ct1;
+    //      CT ct2(ct1);  // OK
     CT(const CT& other);
 
     // #3. [required]move ctor, "const T&&" doesn't make sence!
