@@ -6,50 +6,29 @@ struct ListNode {
    ListNode(int x) : val(x), next(NULL) {}
 };
 
-ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
-    ListNode *ret = NULL;
-    ListNode *pre = NULL;
-    int carry = 0;
-
-    if (l1 && l2) {
-        ret = new ListNode( (l1->val + l2->val) % 10 );
-        carry = (l1->val + l2->val)/10;
-        l1 = l1->next;
-        l2 = l2->next;
-        pre = ret;
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
+        int carrier = 0;
+        ListNode *ret = new ListNode(-1);
+        ListNode *cur = ret;
+        while (l1 || l2) {
+            int l1val = 0, l2val=0;
+            if (l1) {
+                l1val = l1->val;
+                l1 = l1->next;
+            }
+            if (l2) {
+                l2val = l2->val;
+                l2 = l2->next;
+            }
+            
+            int plus = l1val + l2val + carrier;
+            ListNode *nret = new ListNode(plus%10);
+            cur->next = nret;
+            cur = nret;
+            carrier = plus % 10;
+        }
+        return ret->next;
     }
-    
-    while(l1 && l2) {
-        ListNode *temp = new ListNode( (l1->val + l2->val + carry) % 10 );
-        carry = (l1->val+l2->val+carry)/10;
-        pre->next = temp;
-        pre = temp;
-        l1 = l1->next;
-        l2 = l2->next;
-    }
-    
-    ListNode *left = NULL;
-    if (l1)
-        left = l1;
-    else if (l2)
-        left = l2;
-    
-    while (left) {
-        ListNode *temp = new ListNode( (left->val + carry)%10 );
-        carry = (left->val+carry)/10;
-        pre->next = temp;
-        pre = temp;
-        left = left->next;
-    }
-    
-    if (carry) {
-        ListNode *temp = new ListNode(carry);
-        pre->next = temp;
-    }
-    
-    return ret;
-}
-
 
 int main() {
   ListNode *i1 = new ListNode(1);
