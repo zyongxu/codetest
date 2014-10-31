@@ -13,5 +13,5 @@ struct X::XImpl {
 
 int main() {
     cout << sizeof(X::XImpl) << endl
-        << sizeof(X) << endl;
+         << sizeof(X) << endl;
 }
