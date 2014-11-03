@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+module Hanoi3p where
+
 -- Execrise 5: Recursivly Solving the Tower of Hanoi Puzzle
 
 -- type declaration, like typedef in C++
@@ -17,4 +19,3 @@ hanoi n x y z
     | n < 1 = []
     | n == 1 = [(x, y)]
     | otherwise = (hanoi (n-1) x z y) ++ ((x, y) : (hanoi (n-1) z y x))
-
