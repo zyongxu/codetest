@@ -1,7 +1,12 @@
 {-# OPTIONS_GHC -Wall #-}
 
--- Execrise 6: the optimal solution for Tower of hanoi Puzzle with 4 pegs
--- e.g. optimal sol for 15 stacks takes 129 moves
+{-
+  Execrise 6: Tower of Hanoi Puzzle with 4 pegs
+  e.g. optimal sol for 15 stacks takes only 129 moves!
+  Looks like the only way to find an/all optimal solution is by using BFS
+  http://en.wikipedia.org/wiki/Tower_of_Hanoi#With_four_pegs_and_beyond
+  which is not time and space efficient enough to handle a large number of disks
+-}
 
 import Hanoi3p
 
