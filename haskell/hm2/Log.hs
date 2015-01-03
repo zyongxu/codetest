@@ -32,6 +32,11 @@ data MessageTree = Leaf
                  | Node MessageTree LogMessage MessageTree
   deriving (Show, Eq)
 
+{-
+ - "functions" are pure and have no side effect. But "actions" have side effects,
+ - e.g. IO is an action rather than a function
+-}
+
 -- | @testParse p n f@ tests the log file parser @p@ by running it
 --   on the first @n@ lines of file @f@.
 testParse :: (String -> [LogMessage])

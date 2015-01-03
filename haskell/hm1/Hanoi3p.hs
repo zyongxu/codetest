@@ -1,5 +1,7 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- declaring a module named "Hanoi3p", so that code here
+-- could be reused in other files by including "Hanoi3p"
 module Hanoi3p where
 
 -- Execrise 5: Recursivly Solving the Tower of Hanoi Puzzle

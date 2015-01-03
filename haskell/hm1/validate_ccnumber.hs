@@ -26,7 +26,7 @@ toDigits n
 doubleEveryOther :: [Integer] -> [Integer]
 doubleEveryOther [] = []
 doubleEveryOther [x] = [x]
-doubleEveryOther (x : (y : zs))
+doubleEveryOther (x : (y : zs)) -- this is the equivalent to (x : y : zs)
     | (length zs) `mod` 2 == 0 = 2*x : y : doubleEveryOther zs
     | otherwise = x : 2*y : doubleEveryOther zs
 
