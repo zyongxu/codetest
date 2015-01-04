@@ -3,9 +3,13 @@
 {-
   style guide:
     1. use camelCase for function and var names
-    2. give every top-level function a type signature
-    3. local functions and constants do NOT need type signature
-    4. use -Wall: put {-# OPTIONS_GHC -Wall #-} at the 1st line
+    2. type and data constructor names must always start with
+       a capital letter;
+       variables (including names of functions) must always
+       start with a lowercase letter
+    3. give every top-level function a type signature
+    4. local functions and constants do NOT need type signature
+    5. use -Wall: put {-# OPTIONS_GHC -Wall #-} at the 1st line
 -}
 
 -- Execrise 1
