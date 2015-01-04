@@ -34,6 +34,17 @@ toDigits n
     | n <= 0 = []
     | otherwise = reverse (toDigitsRev n)
 
+{-
+ - a list ([...]) in haskell is a singly linked list!
+ - lists concatenation: ++ (e.g. [1, 2, 3] ++ [4])
+ - prepend an element to a list: : (e.g. 1 : [2, 3, 4])
+ - get element by index: !! (e.g. ([1, 2, 3] !! 1) == 2)
+ - other useful functions: head, tail, last, init, length,
+ -                         null, reverse, take, drop,
+ -                         maximum, minimum, sum, product
+ -                         elem (actually for search)
+-}
+
 -- Execrise 2
 -- |double every other element in a list starting from the right side
 doubleEveryOther :: [Integer] -> [Integer]
