@@ -19,6 +19,15 @@ toDigitsRev n     -- <- this is a "(pattern) matching"
     | n <= 0 = [] -- <- this is a "(pattern) guard", could be more readable than if
     | otherwise = (n `mod` 10) : toDigitsRev (quot n 10)
 
+{-
+ - pattern matching is a syntax sugar for the `case` expression:
+ -      case exp of
+ -          pat1 -> exp1
+ -          pat2 -> exp2
+ - patterns are examed from top to bottom, only the exp corresponding
+ - to the FIRST matched pattern will be evaluated
+-}
+
 -- |Takes an integer and returns its digits in a list
 toDigits :: Integer -> [Integer]
 toDigits n
