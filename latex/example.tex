@@ -1,0 +1,83 @@
+\documentclass[12pt,a4paper]{article}
+%  import packages
+%\usepackage[english,greek]{babel}
+%\usepackage[iso-8859-7]{inputenc}
+%-- end of preamble (the block betweemw \documentclass and \begin{document})
+\begin{document} % start of the "document" environment
+\tableofcontents % this expands to an index of \sections
+
+\section{Basics}
+\subsection{Basic latex source file structure}
+\begin{verbatim}
+\documentclass{} % always as the first line in a latex source
+[preamble]
+\begin{document}
+contents
+\end{document}
+\end{verbatim}
+
+\subsection{Organize Contents}
+A new document might need to be compiled multiple times to get a correct table of contents.
+available sectioning commands:
+\begin{verbatim}
+\section{...}
+\subsection{...}
+\subsubsection{...}
+\paragraph{...}
+\subparagraph{...}
+\end{verbatim}
+
+\section[Dev Env]{Development Environment}
+I'm using \underline{vim} + \emph{vimtex} to edit latex
+
+\begin{verbatim}
+NOTE: in my vim config <localleader> is "\"
+\end{verbatim}
+
+some useful shortcuts: \\ % line break (same as \newline)
+\begin{tabular}{|l|l|c|}
+\hline
+key                     &Command                                             & MODE \\
+\hline
+\verb|<localleader>ll|  &vimtex-compile-toggle                               &n \\
+\hline
+\verb|<localleader>lo|  &vimtex-compile-output                               &n \\
+\hline
+\verb|]]|               &vimtex-delim-close (close the current environment)  &i \\
+\hline
+\end{tabular}
+
+\section{Lists}
+\begin{enumerate}
+    \item ordered list item 1 \{enumerate\}
+    \item ordered list item 2:
+        \begin{itemize}
+            \item unordered list item \{itemize\}
+        \end{itemize}
+    \item description list item 3:
+        \begin{description}
+            \item[desc1] item \{description\}
+            \item[desc2] item
+        \end{description}
+    \item[-] item start with dash item 4
+\end{enumerate}
+
+\section{Equations}
+% Example 1
+\begin{quote}
+\ldots when Einstein introduced his formula
+\end{quote}
+\begin{equation}
+e = m \cdot c^2 \; ,
+\end{equation}
+``which is at the `same' time the most widely known
+and the least well understood physical formula.''
+
+% Example 2
+\begin{equation}
+\sum_{k=1}^{n} I_k = 0 \; .
+\end{equation}
+
+\section{Math Equations}
+
+\end{document} % end of the "document" environment
