@@ -13,41 +13,61 @@ import java.util.concurrent.*;
  * @since 4/9/16
  */
 public class ConcurrentSolver {
-    private int numOfCases;
+    private final String inputFilename;
     private final ExecutorService caseSolvers;
     private final List<Future<SolutionFactory.Solution>> solutions = new ArrayList<>();
 
-    public ConcurrentSolver(int numOfThreads) {
+    public enum InputType {
+        Small, Large
+    }
+
+    public ConcurrentSolver(int numOfThreads, InputType inputType) throws IllegalArgumentException {
         this.caseSolvers = Executors.newFixedThreadPool(numOfThreads);
+        switch (inputType) {
+            case Small:
+                this.inputFilename = "A-small-practice.in";
+                break;
+            case Large:
+                this.inputFilename = "A-large-practice.in";
+                break;
+            default:
+                throw new IllegalArgumentException("invalid inputType");
+        }
     }
 
     /**
      * <p>
-     * Solve all problems defined in the {@code workDir/input.txt} concurrently,
-     * then output solutions to {@code workDir/output.txt}.
+     * Solve all problems defined in the {@code workingDir/input.txt} concurrently,
+     * then output solutions to {@code workingDir/output.txt}.
      * The input file should be in the "google code jam format"
      * </p>
      *
-     * @param workDir path to the working directory
+     * @param workingDir path to the working directory that contains {@code input.txt}
      * @throws FileNotFoundException
      */
-    public void solve(String workDir, SolutionFactory solutionFactory) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(workDir + "/input.txt"));
-        numOfCases = Integer.parseInt(br.readLine());
+    public void solve(String workingDir, SolutionFactory solutionFactory) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(workingDir + "/" + inputFilename));
+        int numOfCases = Integer.parseInt(br.readLine());
+        System.out.format("Found %d test cases\n", numOfCases);
+
         for (int i = 0; i < numOfCases; i++) {
             final String content = br.readLine();
-            Future<SolutionFactory.Solution> tracableSolution =
+            Future<SolutionFactory.Solution> traceableSolution =
                     caseSolvers.submit(solutionFactory.solve(i + 1, content));
-            solutions.add(tracableSolution);
+            solutions.add(traceableSolution);
         }
 
+        System.out.println("All problems are submitted to solver, waiting to merge results");
+        // stop accepting new submissions while waiting for the solver to work out all
+        // submitted cases
+        caseSolvers.shutdown();
+
         try {
-            mergeSolutions(workDir);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            mergeSolutions(workingDir);
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("Done!");
     }
 
     private void mergeSolutions(String workDir) throws IOException, ExecutionException, InterruptedException {
@@ -62,7 +82,10 @@ public class ConcurrentSolver {
                 break;
             }
 
-            bw.write("Case " + solution.getIndex() + ": " + solution.getAnswer());
+            bw.write(String.format("Case #%d: %s\n", solution.getIndex(), solution.getAnswer()));
+            System.out.printf("case #%d solved\n", solution.getIndex());
         }
+
+        bw.close();
     }
 }
