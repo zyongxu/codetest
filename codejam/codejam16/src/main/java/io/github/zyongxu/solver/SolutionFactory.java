@@ -8,24 +8,37 @@ import java.util.concurrent.Callable;
  * @author yx
  * @since 4/9/16
  */
-public interface SolutionFactory {
+public abstract class SolutionFactory {
     class Solution {
         private final int index;
         private final String answer;
 
-        public Solution(int index, String answer) {
+        // package-private
+        Solution(int index, String answer) {
             this.index = index;
             this.answer = answer;
         }
 
-        public int getIndex() {
+        int getIndex() {
             return index;
         }
 
-        public String getAnswer() {
+        String getAnswer() {
             return answer;
         }
     }
 
-    Callable<Solution> solve(int index, String problem);
+    Callable<Solution> solve(int index, String problem) {
+        System.out.format("solving problem #%d: %s\n", index, problem);
+
+        return () -> new Solution(index, workOut(problem));
+    }
+
+    /**
+     * <p>Override this method with the actual code that solves the problem</p>
+     *
+     * @param problem the problem to solve
+     * @return solution in a String
+     */
+    protected abstract String workOut(String problem);
 }

@@ -6,41 +6,37 @@ import io.github.zyongxu.solver.SolutionFactory;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 /**
  * 2016 Qualification round - Question 1: https://code.google.com/codejam/contest/6254486/dashboard
  */
-public class CountingSheep implements SolutionFactory {
+public class CountingSheep extends SolutionFactory {
     private static final String INSOMNIA = "INSOMNIA";
     private static final int ITER_LIMIT = 1000000;
 
     @Override
-    public Callable<Solution> solve(int index, String problem) {
-        System.out.format("solving problem #%d: %s\n", index, problem);
-        return () -> {
-            long N = Long.parseLong(problem);
-            if (N == 0)
-                return new Solution(index, INSOMNIA);
+    public String workOut(String problem) {
+        long N = Long.parseLong(problem);
+        if (N == 0)
+            return INSOMNIA;
 
-            final Set<Long> digits = new HashSet<>();
+        final Set<Long> digits = new HashSet<>();
 
-            for (int i = 1; i < ITER_LIMIT; i++) {
-                long iN = i * N;
-                final long initValue = iN;
-                while (iN > 0) {
-                    digits.add(iN % 10);
-                    iN /= 10;
-                }
-
-                if (digits.size() == 10) {
-                    return new Solution(index, Long.toString(initValue));
-                }
+        for (int i = 1; i < ITER_LIMIT; i++) {
+            long iN = i * N;
+            final long initValue = iN;
+            while (iN > 0) {
+                digits.add(iN % 10);
+                iN /= 10;
             }
 
-            System.err.format("Max number of iteration (%d) has reached, return %s", ITER_LIMIT, INSOMNIA);
-            return new Solution(index, INSOMNIA);
-        };
+            if (digits.size() == 10) {
+                return Long.toString(initValue);
+            }
+        }
+
+        System.err.format("Max number of iteration (%d) has reached, return %s", ITER_LIMIT, INSOMNIA);
+        return INSOMNIA;
     }
 
     public static void main(String[] args) throws IOException {
